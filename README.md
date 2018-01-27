@@ -1,2 +1,4 @@
 # Simple automation tools
-This repo contains simple scripts used for making my life easier as an intern at Diebold :atm:
+
+### main-xml-creator
+This is used to process a bunch of individual tests cases scripts into a single set set script.
