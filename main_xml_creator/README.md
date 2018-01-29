@@ -57,24 +57,28 @@ You will need python 3 installed. If you don't have it, download it from the off
 ## Run a demo
 
 1. Start powershell (WIN+R powershell)
-2. Browse to (...)\main_xml_creator
-3. Run
+3. Browse to project folder you unzipped or cloned
+4. Run
 ```
-$ python main_script_creator.py
+python main_xml_creator
 ```
+5. Check arguments required:
+```
+the following arguments are required: origin_folder, destination_folder, path_to_header,path_to_footer
+```
+6. To produce the main scripts from the MODEL_NAME_1 and MODEL_NAME_2 tests found in the sample folder, run
+```
+python main_xml_creator .\main_xml_creator\samples\ .\main_xml_creator\samples .\main_xml_creator\samples\header.txt .\main_xml_creator\samples\footer.txt -v
+```
+7. Run `tree /f` to check that the MODEL_NAME_1.xml and MODEL_NAME_2.xml files were indeed created.
+8. Run `get-content .\main_xml_creator\samples\MODEL_NAME_1.xml` to check the file created.
 
 ## Running the tests
 
-TODO: pytest
+TODO: implement tests using pytest
 
 ## Authors
 
-* **Douglas Navarro* - [douglasnavarro](https://github.com/douglasnavarro)
+* *Douglas Navarro* - Github: [douglasnavarro](https://github.com/douglasnavarro)
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Thanks to the poorly developed tools I have to use an SQA intern.
+*Feel free to contribute. Please first discuss the change or increment you wish to make via issue, email etc.**
