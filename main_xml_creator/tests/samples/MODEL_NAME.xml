@@ -1,0 +1,5 @@
+My header
+<INCLUDE FileName="MODEL_NAME.Test.001.xml" NameSpace="" TAB="10" LineComment="0"/>
+<INCLUDE FileName="MODEL_NAME.Test.002.xml" NameSpace="" TAB="10" LineComment="0"/>
+<INCLUDE FileName="MODEL_NAME.Test.003.xml" NameSpace="" TAB="10" LineComment="0"/>
+My footer

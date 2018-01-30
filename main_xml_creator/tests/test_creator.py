@@ -60,6 +60,15 @@ def create_sample_footer():
         print("Couldn't open or write to file (%s)." %error)
         raise
 
+@pytest.fixture
+def create_test_main_string():
+    main_string = """My header
+<INCLUDE FileName="MODEL_NAME.Test.001.xml" NameSpace="" TAB="10" LineComment="0"/>
+<INCLUDE FileName="MODEL_NAME.Test.002.xml" NameSpace="" TAB="10" LineComment="0"/>
+<INCLUDE FileName="MODEL_NAME.Test.003.xml" NameSpace="" TAB="10" LineComment="0"/>
+My footer"""
+    return main_string
+
 def test_scan_for_models_raises_oserror(clean_samples_folder):
     with pytest.raises(OSError):
         creator.scan_for_models("invalid_folder_path")
@@ -93,5 +102,14 @@ My footer"""
     assert creator.create_main_string('MODEL_NAME', 3, 'My header\n', 'My footer') == main_string
 
 def test_create_main_file_raises_ioerror():
+    main_string = """My header
+<INCLUDE FileName="MODEL_NAME.Test.001.xml" NameSpace="" TAB="10" LineComment="0"/>
+<INCLUDE FileName="MODEL_NAME.Test.002.xml" NameSpace="" TAB="10" LineComment="0"/>
+<INCLUDE FileName="MODEL_NAME.Test.003.xml" NameSpace="" TAB="10" LineComment="0"/>
+My footer"""
     with pytest.raises(IOError):
-        creator.create_main_file()
+        creator.create_main_file('MODEL_NAME', main_string, 'invalid_destination_folder')
+
+def test_create_main_file_success(create_test_main_string):
+    assert creator.create_main_file('MODEL_NAME', create_test_main_string, '.\\main_xml_creator\\tests\\samples') == 0
+    assert 'MODEL_NAME.xml' in os.listdir('.\\main_xml_creator\\tests\\samples')
