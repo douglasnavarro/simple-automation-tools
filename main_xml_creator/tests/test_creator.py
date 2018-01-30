@@ -91,3 +91,7 @@ def test_create_main_string_success():
 <INCLUDE FileName="MODEL_NAME.Test.003.xml" NameSpace="" TAB="10" LineComment="0"/>
 My footer"""
     assert creator.create_main_string('MODEL_NAME', 3, 'My header\n', 'My footer') == main_string
+
+def test_create_main_file_raises_ioerror():
+    with pytest.raises(IOError):
+        creator.create_main_file()

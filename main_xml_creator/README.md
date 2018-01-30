@@ -75,7 +75,8 @@ python main_xml_creator .\main_xml_creator\samples\ .\main_xml_creator\samples .
 
 ## Running the tests
 
-TODO: implement tests using pytest
+1. Install pytest by running `pip install pytest`
+2. Browse to root project folder (simple-automation-tools) and run `pytest`
 
 ## Authors
 
