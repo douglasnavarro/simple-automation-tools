@@ -148,6 +148,8 @@ def main():
 
     parser.add_argument("-v", "--verbose", help="increase output verbosity", action="store_true")
 
+    parser.add_argument("-e", "--easy", help="orig and dest folder are set to .\\, paths to header and footer are .\\header.xml and .\\footer.xml", action="store_true")
+
     args = parser.parse_args()
     if args.verbose:
         print("\nVerbosity turned on!\n")
