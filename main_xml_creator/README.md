@@ -67,8 +67,8 @@ optional arguments:
   -v, --verbose       increase output verbosity (default: False)
 ```
 
-(*) Windows x64: [Download](https://github.com/douglasnavarro/simple-automation-tools/raw/master/main_xml_creator/dist/main_xml_creator.exe)
-
+- [x] Windows x64: [Download](https://github.com/douglasnavarro/simple-automation-tools/raw/master/main_xml_creator/dist/main_xml_creator.exe)
+- [ ]  Windows x86: [Download]()
 
 ## How to contribute: Getting Started
 
