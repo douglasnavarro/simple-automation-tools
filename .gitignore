@@ -2,3 +2,5 @@ __pycache__
 MODEL_NAME_1.xml
 MODEL_NAME_2.xml
 .cache
+.spec
+main_xml_creator.spec

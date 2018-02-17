@@ -129,11 +129,11 @@ def main():
     using functions defined in main_script_creator.py
     '''
     if platform.system() != 'Windows':
-        print("This script only runs properly on Windows.\n")
+        print("\nThis script only runs properly on Windows.\n")
         sys.exit(1)
     
     if len(sys.argv) <= 1:
-        print("Running with default options! Use 'python main_xml_creator -h' for help")
+        print("\nRunning with default options! Use 'main_xml_creator -h' for help")
 
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
