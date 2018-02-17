@@ -10,8 +10,8 @@ C:.
 │   __init__.py
 │
 └───samples
-        footer.txt
-        header.txt
+        footer.xml
+        header.xml
         MODEL_NAME_1.Test.001.xml
         MODEL_NAME_1.Test.002.xml
         MODEL_NAME_1.Test.003.xml
@@ -28,8 +28,8 @@ C:.
 │   __init__.py
 │
 └───samples
-        footer.txt
-        header.txt
+        footer.xml
+        header.xml
         MODEL_NAME_1.Test.001.xml
         MODEL_NAME_1.Test.002.xml
         MODEL_NAME_1.Test.003.xml
@@ -40,9 +40,37 @@ C:.
         MODEL_NAME_2.xml
 ```
 
-where MODEL_NAME_1.xml calls every MODEL_NAME_1.Test.xxx.xml file, the same for MODEL_NAME_2 and son on.
+where MODEL_NAME_1.xml calls every MODEL_NAME_1.Test.xxx.xml file, the same for MODEL_NAME_2 and so on.
 
-## Getting Started
+## Compiled executables
+
+If you simply want to quickly use the tool download an executable.
+```
+.\main_xml_creator.exe -h
+usage: main_xml_creator.exe [-h] [-v]
+                            [origin_folder] [destination_folder]
+                            [path_to_header] [path_to_footer]
+
+This script scans origin folder for test cases scripts and creates a test set
+script on dest. folder using custom header and footer files.
+
+positional arguments:
+  origin_folder       the directory where the test case scripts are located.
+                      default is current directory. (default: .\)
+  destination_folder  the directory where test set scripts will be saved
+                      (default: .\)
+  path_to_header      the path to header template file (default: .\header.xml)
+  path_to_footer      the path to footer template file (default: .\footer.xml)
+
+optional arguments:
+  -h, --help          show this help message and exit
+  -v, --verbose       increase output verbosity (default: False)
+```
+
+(*) Windows x64: [Download](https://github.com/douglasnavarro/simple-automation-tools/raw/master/main_xml_creator/dist/main_xml_creator.exe)
+
+
+## How to contribute: Getting Started
 
 Either [download](https://github.com/douglasnavarro/simple-automation-tools/archive/master.zip) the project .zip or run
 
@@ -77,6 +105,11 @@ python main_xml_creator .\main_xml_creator\samples\ .\main_xml_creator\samples .
 
 1. Install pytest by running `pip install pytest`
 2. Browse to root project folder (simple-automation-tools) and run `pytest -v`
+
+## Building
+
+1. Install pyinstaller by running `pip install pyinstaller`
+2. Run pyinstaller `main_xml_creator.py --onefile` to produce main_xml_creator.exe on build folder.
 
 ## Authors
 
