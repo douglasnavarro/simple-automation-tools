@@ -131,28 +131,30 @@ def main():
     if platform.system() != 'Windows':
         print("This script only runs properly on Windows.\n")
         sys.exit(1)
+    
+    if len(sys.argv) <= 1:
+        print("Running with default options! Use 'python main_xml_creator -h' for help")
 
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        description='''This script scans origin folder for test cases scripts and creates a test set script on dest. folder using
+        custom header and footer files.''')
 
     parser.add_argument("origin_folder", \
-    help="the directory where the test case scripts are located")
+    nargs='?', default='.\\', help="the directory where the test case scripts are located. default is current directory.")
 
     parser.add_argument("destination_folder", \
-    help="the directory where test set scripts will be saved")
+    nargs='?', default='.\\', help="the directory where test set scripts will be saved")
 
     parser.add_argument("path_to_header", \
-    help="the path to header template file")
+    nargs='?', default='.\\header.xml', help="the path to header template file")
 
     parser.add_argument("path_to_footer", \
-    help="the path to footer template file")
+    nargs='?', default='.\\footer.xml', help="the path to footer template file")
 
     parser.add_argument("-v", "--verbose", help="increase output verbosity", action="store_true")
 
-    parser.add_argument("-e", "--easy", help="orig and dest folder are set to .\\, paths to header and footer are .\\header.xml and .\\footer.xml", action="store_true")
-
     args = parser.parse_args()
-    if args.verbose:
-        print("\nVerbosity turned on!\n")
 
     try:
         header = load_header(args.path_to_header)
