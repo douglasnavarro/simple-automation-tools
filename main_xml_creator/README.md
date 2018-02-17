@@ -68,7 +68,7 @@ optional arguments:
 ```
 
 - [x] Windows x64: [Download](https://github.com/douglasnavarro/simple-automation-tools/raw/master/main_xml_creator/dist/main_xml_creator.exe)
-- [ ]  Windows x86: [Download]()
+- [ ]  Windows x86: Pending
 
 ## How to contribute: Getting Started
 
