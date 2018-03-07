@@ -9,6 +9,7 @@ import pprint
 import os
 import sys
 import platform
+import datetime
 
 def load_header(path_to_header_file):
     '''
@@ -25,6 +26,35 @@ def load_header(path_to_header_file):
     except IOError as error:
         print("Couldn't read header file \n(%s)." %error)
         raise
+
+def process_header(header, model_name):
+    '''
+    Updates header template fields:
+        - Last generated (#last_gen#)
+        - Author (#author#)
+        - Label (#label#)
+        - Test Group Id (#group_id#)
+    Args:
+        header (str): string representing header template loaded
+        model_name (str): model name for the main xml script in which this header will be used
+    Return:
+        processed_header (str): processed header
+    '''
+    processed_header = header.replace("#label#", model_name)
+    processed_header = processed_header.replace('#group_id#', model_name)
+    try:
+        processed_header = processed_header.replace('#author#', os.getlogin())
+    except OSError as error:
+        print("Failed getting windows user name!")
+        print(error)
+        raise
+    try:
+        processed_header = processed_header.replace("#last_gen#", datetime.datetime.now().strftime("%y-%m-%dT%H:%M"))
+    except Exception as error:
+        print("Failed getting datetime!")
+        print(error)
+        raise
+    return processed_header
 
 def load_footer(path_to_footer_file):
     '''
@@ -89,6 +119,7 @@ def create_main_string(model_name, tests_count, header, footer):
         main_string (str): A string representing the MODELNAME.xml file, yet not created.
     '''
 
+    header = process_header(header, model_name)
     main_string = header
     for i in range(1, tests_count + 1):
         main_string += "<INCLUDE FileName=\"" + model_name + ".Test."+ format(i, '03d') +  \
