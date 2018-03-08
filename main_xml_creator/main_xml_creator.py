@@ -158,8 +158,11 @@ def create_unattended_string(models, header, footer):
         footer: (string) from template footer
     '''
     unattended = header
+    total = 0
     for model_name, test_count in models.items():
         unattended += "<INCLUDE FileName=\"" + model_name + ".xml\" " + "NameSpace=\"\" TAB=\"10\" LineComment=\"0\"/>" + "\n"
+        total += test_count
+    unattended += "COMMENT COMMENT=\"Test count: " + str(total) + " TAB=\"0\" LineComment=\"0\"/>"
     unattended += footer
     return unattended
 
