@@ -144,6 +144,7 @@ def create_main_file(model_name, main_string, destination_folder):
     try:
         with open(dest, 'w+') as file:
             file.write(main_string)
+            return 0
     except IOError as error:
         print("Couldn't open or write to file (%s)." %error)
         raise

@@ -3,6 +3,7 @@
 import os
 import pytest
 from .. import main_xml_creator as creator
+import datetime
 
 @pytest.fixture
 def clean_samples_folder():
@@ -13,11 +14,8 @@ def clean_samples_folder():
         if listdir == []:
             continue
         file_path = os.path.join(folder, file)
-        try:
-            if os.path.isfile(file_path):
-                os.unlink(file_path)
-        except OSError as error:
-            print(error)
+        if os.path.isfile(file_path):
+            os.unlink(file_path)
 
 @pytest.fixture
 def create_sample_scripts():
@@ -27,38 +25,27 @@ def create_sample_scripts():
         for case_number in range(1, 4):
             file_name = folder + "MODEL_NAME_" + str(set_number) + '.Test.' + \
             format(case_number, '03d') + '.xml'
-            try:
-                with open(file_name, 'w+') as file:
-                    file.close()
-            except IOError as error:
-                print("Couldn't open or write to file (%s)." %error)
-                raise
+            with open(file_name, 'w+') as file:
+                file.close()
 
 @pytest.fixture
 def create_sample_header():
     '''Creates sample header.xml file in .\\main_xml_creator\\tests\\samples'''
     folder = '.\\main_xml_creator\\tests\\samples\\'
     file_name = folder + 'header.xml'
-    try:
-        with open(file_name, 'w+') as file:
-            file.write('My sample header\n')
-            file.close()
-    except IOError as error:
-        print("Couldn't open or write to file (%s)." %error)
-        raise
+    with open(file_name, 'w+') as file:
+        file.write('My sample header\n')
+        file.close()
 
 @pytest.fixture
 def create_sample_footer():
     '''Creates sample footer.xml file in .\\main_xml_creator\\tests\\samples'''
     folder = '.\\main_xml_creator\\tests\\samples\\'
     file_name = folder + 'footer.xml'
-    try:
-        with open(file_name, 'w+') as file:
-            file.write('\nMy sample footer')
-            file.close()
-    except IOError as error:
-        print("Couldn't open or write to file (%s)." %error)
-        raise
+    with open(file_name, 'w+') as file:
+        file.write('\nMy sample footer')
+        file.close()
+
 
 @pytest.fixture
 def create_test_main_string():
@@ -68,6 +55,20 @@ def create_test_main_string():
 <INCLUDE FileName="MODEL_NAME.Test.003.xml" NameSpace="" TAB="10" LineComment="0"/>
 My footer"""
     return main_string
+
+@pytest.fixture
+def create_processed_header():
+    time =  datetime.datetime.now().strftime("%y-%m-%dT%H:%M")
+    author = os.getlogin()
+    test_model_name = "TEST_MODEL_NAME"
+    header = """This is a sample header with #author#,
+                #label#, as well as #group_id# and even
+                the date (#last_gen#) it was generated"""
+    processed_header = header.replace("#author#", author)
+    processed_header = processed_header.replace("#label#", test_model_name)
+    processed_header = processed_header.replace("#group_id#", test_model_name)
+    processed_header = processed_header.replace("#last_gen#", time)
+    return processed_header
 
 def test_scan_for_models_raises_oserror(clean_samples_folder):
     with pytest.raises(OSError):
@@ -113,3 +114,9 @@ My footer"""
 def test_create_main_file_success(create_test_main_string):
     assert creator.create_main_file('MODEL_NAME', create_test_main_string, '.\\main_xml_creator\\tests\\samples') == 0
     assert 'MODEL_NAME.xml' in os.listdir('.\\main_xml_creator\\tests\\samples')
+
+def test_process_header_success(create_processed_header):
+    header = """This is a sample header with #author#,
+            #label#, as well as #group_id# and even
+            the date (#last_gen#) it was generated"""
+    assert creator.process_header(header, "TEST_MODEL_NAME") == create_processed_header.processed_header
