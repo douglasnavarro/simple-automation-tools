@@ -62,8 +62,8 @@ def create_processed_header():
     author = os.getlogin()
     test_model_name = "TEST_MODEL_NAME"
     header = """This is a sample header with #author#,
-                #label#, as well as #group_id# and even
-                the date (#last_gen#) it was generated"""
+            #label#, as well as #group_id# and even
+            the date (#last_gen#) it was generated"""
     processed_header = header.replace("#author#", author)
     processed_header = processed_header.replace("#label#", test_model_name)
     processed_header = processed_header.replace("#group_id#", test_model_name)
@@ -119,4 +119,4 @@ def test_process_header_success(create_processed_header):
     header = """This is a sample header with #author#,
             #label#, as well as #group_id# and even
             the date (#last_gen#) it was generated"""
-    assert creator.process_header(header, "TEST_MODEL_NAME") == create_processed_header.processed_header
+    assert creator.process_header(header, "TEST_MODEL_NAME") == create_processed_header
