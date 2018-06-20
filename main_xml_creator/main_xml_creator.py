@@ -34,6 +34,7 @@ def process_header(header, model_name):
         - Author (#author#)
         - Label (#label#)
         - Test Group Id (#group_id#)
+        - Model name (#model_name#)
     Args:
         header (str): string representing header template loaded
         model_name (str): model name for the main xml script in which this header will be used
@@ -42,6 +43,7 @@ def process_header(header, model_name):
     '''
     processed_header = header.replace("#label#", model_name)
     processed_header = processed_header.replace('#group_id#', model_name)
+    processed_header = processed_header.replace('#model_name#', model_name)
     try:
         processed_header = processed_header.replace('#author#', os.getlogin())
     except OSError as error:
@@ -249,8 +251,8 @@ def main():
         print()
 
     for model_name, test_count in models.items():
-        header = process_header(header, model_name)
-        main_string = create_main_string(model_name, test_count, header, footer)
+        processed_header = process_header(header, model_name)
+        main_string = create_main_string(model_name, test_count, processed_header, footer)
         try:
             create_main_file(model_name, main_string, args.destination_folder)
         except IOError:
