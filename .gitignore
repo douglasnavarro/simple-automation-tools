@@ -6,3 +6,5 @@ MODEL_NAME_2.xml
 main_xml_creator.spec
 build
 .coverage
+dist
+.pytest_cache
